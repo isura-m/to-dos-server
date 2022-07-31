@@ -58,6 +58,21 @@ app.delete("/to-dos/:id", async (req: Request, res: Response) => {
   }
 });
 
+app.put("/to-dos/:id/done", async (req: Request, res: Response) => {
+  try {
+    const task = await TasksModel.findById(req.params.id);
+    if (!task) {
+      throw new Error("No Task Found by that ID");
+    }
+    task.done = req.body.done;
+    await task.save();
+    res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false });
+  }
+});
+
 app.listen(4000, () => {
   connectToDB();
   console.log("server listening on post 4000!");
