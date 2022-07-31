@@ -23,6 +23,7 @@ app.post("/to-dos", async (req: Request, res: Response) => {
     const newTask = new TasksModel();
     newTask.task = req.body.task;
     newTask.notes = req.body.notes;
+    newTask.done = req.body.done;
     await newTask.save();
     res.json({ success: true });
   } catch (err) {
