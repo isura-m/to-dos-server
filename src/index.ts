@@ -1,10 +1,12 @@
 import "dotenv/config";
+import cors from "cors";
 import express, { Request, Response } from "express";
 import connectToDB from "./connectToDB";
 import TasksModel from "./models/TasksModel";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/to-dos", async (req: Request, res: Response) => {
   try {
