@@ -1,8 +1,19 @@
 import "dotenv/config";
 import express, { Request, Response } from "express";
 import connectToDB from "./connectToDB";
+import TasksModel from "./models/TasksModel";
 
 const app = express();
+
+app.get("/to-dos", async (req: Request, res: Response) => {
+  try {
+    const tasks = await TasksModel.find();
+    res.json({ success: true, tasks });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false });
+  }
+});
 
 app.listen(4000, () => {
   connectToDB();
