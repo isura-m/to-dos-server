@@ -45,6 +45,16 @@ app.put("/to-dos/:id", async (req: Request, res: Response) => {
   }
 });
 
+app.delete("/to-dos/:id", async (req: Request, res: Response) => {
+  try {
+    await TasksModel.deleteOne({ _id: req.params.id });
+    res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false });
+  }
+});
+
 app.listen(4000, () => {
   connectToDB();
   console.log("server listening on post 4000!");
